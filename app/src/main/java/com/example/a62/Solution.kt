@@ -13,16 +13,33 @@ class Solution {
         var diction = arrayOf("aya","ye","woo","ma")
 
         var list = babbling.toMutableList()
-        var filteredList = listOf("")
-        for(index in list.indices){
-            //각 리스트에 diction 을 빼서 비어 있다면 count
-            filteredList = diction.filter {list[index].contains(it)}
+        var filteredList :List<String>
+        var exFilteredList = List<String>(list.size,{""}).toMutableList()
+        var count = 0
+        //while인데.... 언제 멈춰야하지? -->filtered 가 더이상 되지않는경우?
+        while(count<=list.size) {
+            for (index in list.indices) {
+                //각 리스트에 diction 을 빼서 비어 있다면 count
+                filteredList = diction.filter { list[index].contains(it) }
 
-            //필터링된 리스트 값을 뺀다.
-            for(f in filteredList){
-                list[index] = list[index].substringAfter(f)
+                //필터링된 리스트 값을 뺀다.
+                if (filteredList.isEmpty()) count++
+                else {
+                    for (f in filteredList) {
+                        //이전과 같으면 시행되면안된다!!
+                        if(exFilteredList[index]==f) continue
+
+                        list[index] = list[index].substringAfter(f)
+
+                    }
+                    exFilteredList[index] = filteredList.last()
+                }
             }
         }
+
+
+
+
         answer = list.count{it==""}
 
 
