@@ -30,12 +30,16 @@ class Solution {
 
                     for (f in filteredList) {
                         //이전과 같으면 시행되면안된다!!
-                        if(exFilteredList[index]==f) list[index]="-1" //더이상 계산필요 x
-
-                        list[index] = list[index].replaceFirst(f,"")
-
+                        if(exFilteredList[index]==f) {
+                            list[index]="-1"
+                            break
+                        } //더이상 계산필요 x
+                        else {
+                            list[index] = list[index].replaceFirst(f, "")
+                            exFilteredList[index] = f
+                            break
+                        }
                     }
-                    exFilteredList[index] = filteredList.last()
                 }
             }
             if(count>=list.size) break
@@ -55,8 +59,9 @@ class Solution {
 }
 fun main(){
     val a = Solution()
-//    a.solution(arrayOf("aya", "yee", "u", "maa"))
-//    a.solution(arrayOf("ayaye", "uuu", "yeye", "yemawoo", "ayaayaa"))
-//    a.solution(arrayOf("maya"))
-    a.solution(arrayOf("ayayeayayeaya"))
+//    a.solution(arrayOf("aya", "yee", "u", "maa"))//1
+//    a.solution(arrayOf("ayaye", "uuu", "yeye", "yemawoo", "ayaayaa"))//2
+//    a.solution(arrayOf("maya"))//0
+    a.solution(arrayOf("ayayeayayeaya"))//1
+    a.solution(arrayOf("yeyema"))//0
 }
